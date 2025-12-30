@@ -1,0 +1,158 @@
+>>> <!DOCTYPE html>
+... <html lang="hmn">
+... <head>
+...   <meta charset="UTF-8">
+...   <title>Hmong Live Web</title>
+...   <meta name="viewport" content="width=device-width, initial-scale=1">
+... 
+...   <!-- ===== CSS ===== -->
+...   <style>
+...     body {
+...       font-family: Arial, sans-serif;
+...       background: #f2f2f2;
+...       text-align: center;
+...       padding: 20px;
+...     }
+... 
+...     h2 {
+...       color: #333;
+...     }
+... 
+...     input {
+...       display: block;
+...       width: 90%;
+...       max-width: 400px;
+...       margin: 10px auto;
+...       padding: 12px;
+...       font-size: 16px;
+...     }
+... 
+...     button {
+...       padding: 12px 20px;
+...       font-size: 16px;
+...       background: #2c7be5;
+...       color: white;
+...       border: none;
+...       border-radius: 5px;
+...       margin-top: 10px;
+    }
+
+    button:hover {
+      background: #1a5fc1;
+    }
+
+    a {
+      color: #2c7be5;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    iframe {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== ĐĂNG NHẬP ===== -->
+<div id="loginBox" class="box">
+  <h2>Nkag mus saib Live</h2>
+
+  <input id="loginUser" placeholder="Lub npe siv">
+  <input id="loginPass" type="password" placeholder="Tus lej zais">
+
+  <button onclick="login()">Nkag mus</button>
+
+  <p>Tsi muaj account?
+    <a onclick="showRegister()">Sau npe</a>
+  </p>
+</div>
+
+<!-- ===== ĐĂNG KÝ ===== -->
+<div id="registerBox" class="box" style="display:none">
+  <h2>Sau npe tshiab</h2>
+
+  <input id="regUser" placeholder="Lub npe siv">
+  <input id="regPass" type="password" placeholder="Tus lej zais">
+
+  <button onclick="register()">Sau npe</button>
+
+  <p>
+    <a onclick="showLogin()">Rov qab nkag mus</a>
+  </p>
+</div>
+
+<!-- ===== LIVE ===== -->
+<div id="liveBox" class="box" style="display:none">
+  <h2>🔴 Live tam sim no</h2>
+
+  <!-- ⚠️ THAY ID LIVE Ở ĐÂY -->
+  <iframe
+    height="315"
+    src="https://www.youtube.com/embed/YOUTUBE_LIVE_ID"
+    allowfullscreen>
+  </iframe>
+
+  <br><br>
+  <button onclick="logout()">Tawm</button>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  function showRegister() {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("registerBox").style.display = "block";
+  }
+
+  function showLogin() {
+    document.getElementById("registerBox").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+  }
+
+  function register() {
+    let u = document.getElementById("regUser").value;
+    let p = document.getElementById("regPass").value;
+
+    if (u === "" || p === "") {
+      alert("Sau npe tsis tiav");
+      return;
+    }
+
+    localStorage.setItem(u, p);
+    alert("Sau npe tiav lawm");
+
+    showLogin();
+  }
+
+  function login() {
+    let u = document.getElementById("loginUser").value;
+    let p = document.getElementById("loginPass").value;
+
+    let savedPass = localStorage.getItem(u);
+
+    if (savedPass === p) {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("liveBox").style.display = "block";
+    } else {
+      alert("Lub npe siv lossis tus lej zais tsis yog");
+    }
+  }
+
+  function logout() {
+    document.getElementById("liveBox").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+  }
+</script>
+
+</body>
+</html>
